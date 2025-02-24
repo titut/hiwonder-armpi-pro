@@ -6,6 +6,7 @@ Handles the control of the mobile base and 5-DOF robotic arm using commands rece
 """
 
 import time
+from math import sin, cos, radians
 import numpy as np
 from board_controller import BoardController
 from servo_bus_controller import ServoBusController
@@ -22,7 +23,14 @@ class HiwonderRobot:
         self.board = BoardController()
         self.servo_bus = ServoBusController()
 
+        # arm angles
         self.joint_values = [0, 0, 90, -30, 0, 0]  # degrees
+        self.theta = [radians(i) for i in self.joint_values]
+        self.DH = [[0, 0, 0]]
+
+        # arm lengths
+        self.l1, self.l2, self.l3, self.l4, self.l5 = 0.155, 0.099, 0.095, 0.055, 0.105
+
         self.home_position = [0, 0, 90, -30, 0, 0]  # degrees
         self.joint_limits = [
             [-120, 120], [-90, 90], [-120, 120],
@@ -84,6 +92,45 @@ class HiwonderRobot:
     # Methods for interfacing with the 5-DOF robotic arm
     # -------------------------------------------------------------
 
+    def DH_matrix(self, theta, d, r, alpha):
+        """Calculates DH matrix based on given arguments"""
+        return np.array(
+            [
+                [
+                    cos(theta),
+                    -sin(theta) * cos(alpha),
+                    sin(theta) * sin(alpha),
+                    r * cos(theta),
+                ],
+                [
+                    sin(theta),
+                    cos(theta) * cos(alpha),
+                    -cos(theta) * sin(alpha),
+                    r * sin(theta),
+                ],
+                [0, sin(alpha), cos(alpha), d],
+                [0, 0, 0, 1],
+            ]
+        )
+
+    def calc_DH_matrices(self):
+        """Calculates all DH Matrices of the system"""
+        # DH table parameters
+        theta_i_table = [
+            self.theta[0],
+            self.theta[1],
+            self.theta[2],
+            self.theta[3],
+            -np.pi / 2,
+        ]
+        d_table = [self.l1, 0, 0, 0, 0]
+        r_table = [0, self.l2, self.l3, self.l4, 0]
+        alpha_table = [np.pi / 2, 0, 0, 0, -np.pi / 2]
+        for i in range(5):
+            self.DH[i] = self.DH_matrix(
+                theta_i_table[i], d_table[i], r_table[i], alpha_table[i]
+            )
+
     def set_arm_velocity(self, cmd: ut.GamepadCmds):
         """Calculates and sets new joint angles from linear velocities.
 
@@ -95,7 +142,37 @@ class HiwonderRobot:
         ######################################################################
         # insert your code for finding "thetalist_dot"
 
-        thetalist_dot = [0]*5
+        self.calc_DH_matrices()
+        T_cumulative = [np.eye(4)]
+        for i in range(5):
+            if i == 4:
+                T_cumulative.append(
+                    T_cumulative[-1]
+                    @ self.DH[i]
+                    @ self.DH_matrix(self.theta[4], self.l5, 0, 0)
+                )
+            else:
+                T_cumulative.append(T_cumulative[-1] @ self.DH[i])
+        J = []
+
+        points = [np.array([0, 0, 0, 1])]
+        for i in range(1, 6):
+            points[i] = T_cumulative[i] @ points[0]
+
+        for i in range(4):
+            k = np.array([0, 0, 1])
+            rot_matrix = T_cumulative[i][:3, :3]
+            z = rot_matrix @ k
+            r = (points[5] - points[i])[:3]
+            J.append(np.cross(z, r))
+
+        jacobian = np.transpose(np.array([J[0], J[1], J[2], J[3], [0, 0, 0]]))
+        new_jacobian = np.transpose(jacobian) @ np.linalg.inv(
+            jacobian @ np.transpose(jacobian)
+        )
+
+        thetalist_dot = new_jacobian @ vel
+        thetalist_dot = thetalist_dot / 50 / (np.max(thetalist_dot) + 1)
 
         ######################################################################
 
