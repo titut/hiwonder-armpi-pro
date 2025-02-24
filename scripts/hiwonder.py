@@ -155,7 +155,7 @@ class HiwonderRobot:
                 T_cumulative.append(T_cumulative[-1] @ self.DH[i])
         J = []
 
-        points = [np.array([0, 0, 0, 1])]
+        points = [np.array([0, 0, 0, 1]), np.array([0, 0, 0, 1]), np.array([0, 0, 0, 1]), np.array([0, 0, 0, 1]), np.array([0, 0, 0, 1]), np.array([0, 0, 0, 1])]
         for i in range(1, 6):
             points[i] = T_cumulative[i] @ points[0]
 
