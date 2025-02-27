@@ -187,7 +187,7 @@ class HiwonderRobot:
         )
 
         thetalist_dot = new_jacobian @ vel
-        thetalist_dot = thetalist_dot / 5 / (np.max(thetalist_dot) + 1)
+        thetalist_dot = thetalist_dot / 1.5 / (np.max(thetalist_dot) + 1)
 
         ######################################################################
 
