@@ -148,6 +148,8 @@ class HiwonderRobot:
         ######################################################################
         # insert your code for finding "thetalist_dot"
 
+        self.theta = [radians(i) for i in self.joint_values]
+
         self.calc_DH_matrices()
         T_cumulative = [np.eye(4)]
         for i in range(5):
@@ -185,7 +187,7 @@ class HiwonderRobot:
         )
 
         thetalist_dot = new_jacobian @ vel
-        thetalist_dot = thetalist_dot / 2 / (np.max(thetalist_dot) + 1)
+        thetalist_dot = thetalist_dot / 10 / (np.max(thetalist_dot) + 1)
 
         ######################################################################
 
