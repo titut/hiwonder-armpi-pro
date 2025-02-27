@@ -25,7 +25,7 @@ class HiwonderRobot:
         self.servo_bus = ServoBusController()
 
         # arm angles
-        self.joint_values = [0, 0, 90, -30, 0, 0]  # degrees
+        self.joint_values = [0, 0, 90, 90, 0, 0]  # degrees
         self.theta = [radians(i) for i in self.joint_values]
         self.DH = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
 
