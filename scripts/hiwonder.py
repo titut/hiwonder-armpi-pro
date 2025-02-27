@@ -32,7 +32,7 @@ class HiwonderRobot:
         # arm lengths
         self.l1, self.l2, self.l3, self.l4, self.l5 = 0.155, 0.099, 0.095, 0.055, 0.105
 
-        self.home_position = [0, -90, -90, -90, 0, 0]  # degrees
+        self.home_position = [0, 30, -30, -60, 0, 0]  # degrees
         self.joint_limits = [
             [-120, 120],
             [-90, 90],
@@ -124,8 +124,8 @@ class HiwonderRobot:
         # DH table parameters
         theta_i_table = [
             self.theta[0],
-            self.theta[1] - radians(90),
-            self.theta[2] * -1,
+            self.theta[1],
+            self.theta[2],
             self.theta[3],
             -np.pi / 2,
         ]
