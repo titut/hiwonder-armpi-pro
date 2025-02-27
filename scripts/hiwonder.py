@@ -27,12 +27,12 @@ class HiwonderRobot:
         # arm angles
         self.joint_values = [0, 0, 90, -30, 0, 0]  # degrees
         self.theta = [radians(i) for i in self.joint_values]
-        self.DH = [[0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]]
+        self.DH = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
 
         # arm lengths
         self.l1, self.l2, self.l3, self.l4, self.l5 = 0.155, 0.099, 0.095, 0.055, 0.105
 
-        self.home_position = [0, 20, 60, -50, 0, 0]  # degrees
+        self.home_position = [0, -90, 0, 0, 0, 0]  # degrees
         self.joint_limits = [
             [-120, 120],
             [-90, 90],
