@@ -124,8 +124,8 @@ class HiwonderRobot:
         # DH table parameters
         theta_i_table = [
             self.theta[0],
-            self.theta[1],
-            self.theta[2],
+            self.theta[1] - radians(90),
+            self.theta[2] * -1,
             self.theta[3],
             -np.pi / 2,
         ]
