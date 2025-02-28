@@ -199,7 +199,7 @@ class HiwonderRobot:
             f"[DEBUG] linear vel: {[round(vel[0], 3), round(vel[1], 3), round(vel[2], 3)]}"
         )
         print(f"[DEBUG] thetadot (deg/s) = {[round(td,2) for td in thetalist_dot]}")
-        print(new_jacobian)
+        print(new_jacobian @ vel)
 
         # Update joint angles
         dt = 0.5  # Fixed time step
