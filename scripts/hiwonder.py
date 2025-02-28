@@ -188,7 +188,7 @@ class HiwonderRobot:
         # get thetalist_dot
         thetalist_dot = new_jacobian @ vel
         # normalize thetalist_dot and scale it by a factor
-        thetalist_dot = thetalist_dot / (np.max(thetalist_dot) + 0.01) / 6
+        thetalist_dot = thetalist_dot / (np.max(np.absolute(thetalist_dot)) + 0.01) / 6
         # turn thetalist_dot into degrees
         thetalist_dot = [degrees(theta) for theta in thetalist_dot]
 
