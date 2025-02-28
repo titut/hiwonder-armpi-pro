@@ -101,7 +101,7 @@ class GamepadControl:
         code_map = {
             "ABS_X": ("abs_x", event.state),
             "ABS_Y": ("abs_y", event.state),
-            "ABS_Z": ("abs_z", event.state),
+            "ABS_RY": ("abs_z", event.state),
             #'ABS_RZ': ('abs_rz', event.state),
             #'BTN_WEST': ('MOBILE_BASE_FLAG', bool(event.state)),
             "BTN_TR": ("ARM_FLAG", bool(event.state)),
