@@ -62,7 +62,7 @@ class HiwonderRobot:
         if cmd.arm_home:
             self.move_to_home_position()
 
-        print(f"---------------------------------------------------------------------")
+        # print(f"---------------------------------------------------------------------")
 
         # self.set_base_velocity(cmd)
         self.set_arm_velocity(cmd)
@@ -196,12 +196,11 @@ class HiwonderRobot:
 
         ######################################################################
 
-        print(f"[DEBUG] Current thetalist (deg) = {self.joint_values}")
-        print(
-            f"[DEBUG] linear vel: {[round(vel[0], 3), round(vel[1], 3), round(vel[2], 3)]}"
-        )
-        print(f"[DEBUG] thetadot (deg/s) = {[round(td,2) for td in thetalist_dot]}")
-        print(new_jacobian @ vel)
+        # print(f"[DEBUG] Current thetalist (deg) = {self.joint_values}")
+        # print(
+        #    f"[DEBUG] linear vel: {[round(vel[0], 3), round(vel[1], 3), round(vel[2], 3)]}"
+        # )
+        # print(f"[DEBUG] thetadot (deg/s) = {[round(td,2) for td in thetalist_dot]}")
 
         # Update joint angles
         dt = 0.5  # Fixed time step
@@ -220,7 +219,7 @@ class HiwonderRobot:
         new_thetalist[5] = self.joint_values[5] + dt * K * cmd.arm_ee
 
         new_thetalist = [round(theta, 2) for theta in new_thetalist]
-        print(f"[DEBUG] Commanded thetalist (deg) = {new_thetalist}")
+        # print(f"[DEBUG] Commanded thetalist (deg) = {new_thetalist}")
 
         # set new joint angles
         self.set_joint_values(new_thetalist, radians=False)
@@ -239,7 +238,7 @@ class HiwonderRobot:
         pulse = self.angle_to_pulse(theta)
         self.servo_bus.move_servo(joint_id, pulse, duration)
 
-        print(f"[DEBUG] Moving joint {joint_id} to {theta}° ({pulse} pulse)")
+        # print(f"[DEBUG] Moving joint {joint_id} to {theta}° ({pulse} pulse)")
         time.sleep(self.joint_control_delay)
 
     def set_joint_values(self, thetalist: list, duration=250, radians=False):
