@@ -136,7 +136,7 @@ class GamepadControl:
             "BTN_NORTH": ("ARM_J4_FLAG", bool(event.state)),
             "ABS_RZ": ("ARM_J5_FLAG", bool(event.state)),
             "ABS_Z": ("ARM_EE_FLAG", bool(event.state)),
-            "BTN_SELECT": ("ARM_HOME", bool(event.state)),
+            "BTN_BASE3": ("ARM_HOME", bool(event.state)),
         }
 
         if event.code in code_map:
