@@ -59,6 +59,8 @@ class HiwonderRobot:
             cmd (GamepadCmds): Command data class with velocities and joint commands.
         """
 
+        print(cmd)
+
         if cmd.arm_home:
             self.move_to_home_position()
 
