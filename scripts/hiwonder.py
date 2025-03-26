@@ -33,6 +33,8 @@ class HiwonderRobot:
         self.l1, self.l2, self.l3, self.l4, self.l5 = 0.155, 0.099, 0.095, 0.055, 0.105
 
         self.home_position = [45, -52.09, -23.2, -61.11, 0, 0]  # degrees
+        self.home_position2 = [45, -52.09, -23.2, -61.11, 0, 0]  # degrees
+
         self.joint_limits = [
             [-120, 120],
             [-90, 90],
@@ -277,6 +279,12 @@ class HiwonderRobot:
         ]
 
     def move_to_home_position(self):
+        print(f"Moving to home position...")
+        self.set_joint_values(self.home_position, duration=800)
+        time.sleep(2.0)
+        print(f"Arrived at home position: {self.joint_values} \n")
+        time.sleep(1.0)
+        print(f"------------------- System is now ready!------------------- \n")
         print(f"Moving to home position...")
         self.set_joint_values(self.home_position, duration=800)
         time.sleep(2.0)
