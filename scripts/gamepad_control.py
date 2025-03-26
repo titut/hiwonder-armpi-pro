@@ -63,7 +63,7 @@ class GamepadControl:
             if event.ev_type != "Sync":
                 self._handle_event(event)
 
-                # print(f'type: {event.code}, state: {event.state}')
+                print(f"type: {event.code}, state: {event.state}")
 
         if self.MOBILE_BASE_FLAG:
             gamepad_cmds.base_vx = self.map_value(
