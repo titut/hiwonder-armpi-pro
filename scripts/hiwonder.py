@@ -127,13 +127,17 @@ class HiwonderRobot:
     def calc_DH_matrices(self):
         """Calculates all DH Matrices of the system"""
         # DH table parameters
-        theta_i_table = [self.theta[0], self.theta[1], self.theta[2], self.theta[3], 0]
+        theta_i_table = [
+            self.theta[0],
+            self.theta[1],
+            self.theta[2],
+            self.theta[3],
+            self.theta[4],
+        ]
         d_table = [self.l1, 0, 0, 0, self.l5]
         r_table = [0, self.l2, self.l3, self.l4, 0]
         alpha_table = [np.pi / 2, np.pi, np.pi, 0, 0]
-
-        # Calculate DH matrices
-        for i in range(5):
+        for i in range(self.num_dof):
             if i == 0:
                 self.DH[i] = self.DH_matrix(
                     theta_i_table[i], d_table[i], r_table[i], alpha_table[i]
