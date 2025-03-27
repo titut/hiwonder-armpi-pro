@@ -61,6 +61,9 @@ class HiwonderRobot:
         if cmd.arm_home:
             self.move_to_home_position()
 
+        if cmd.arm_j1:
+            self.move_square()
+
         # print(f"---------------------------------------------------------------------")
 
         # self.set_base_velocity(cmd)
