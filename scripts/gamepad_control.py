@@ -87,11 +87,7 @@ class GamepadControl:
                 self.abs_z, [32767, -32767], [-0.1, 0.1]
             )
 
-        gamepad_cmds.arm_j1 = (
-            self.map_value(self.abs_x, [-32767, 32767], [-0.1, 0.1])
-            if self.ARM_J1_FLAG
-            else 0.0
-        )
+        gamepad_cmds.arm_j1 = 1.0 if self.ARM_J1_FLAG else 0.0
         gamepad_cmds.arm_j2 = (
             self.map_value(self.abs_x, [-32767, 32767], [-0.1, 0.1])
             if self.ARM_J2_FLAG
