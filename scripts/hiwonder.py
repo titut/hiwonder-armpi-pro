@@ -341,7 +341,10 @@ class HiwonderRobot:
         Move in square motion
         """
         print(f"Moving to square position...")
-        self.set_joint_values(self.square_position, duration=800)
+        self.set_joint_values(
+            self.calc_analytical_inverse_kinematics(0.29, -0.0762, 0.331, -30),
+            duration=800,
+        )
         time.sleep(2.0)
         print(f"[DEBUG] Current thetalist (deg) = {self.joint_values}")
         time.sleep(1.0)
