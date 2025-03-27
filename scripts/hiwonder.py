@@ -195,6 +195,8 @@ class HiwonderRobot:
 
         theta[3] = atan2(r_35[0][0], r_35[0][2])
 
+        return theta
+
     def set_arm_velocity(self, cmd: ut.GamepadCmds):
         """Calculates and sets new joint angles from linear velocities.
 
