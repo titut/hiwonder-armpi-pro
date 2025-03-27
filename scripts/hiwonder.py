@@ -237,11 +237,8 @@ class HiwonderRobot:
 
         self.calc_DH_matrices()
         r_03 = (self.DH[0] @ self.DH[1] @ self.DH[2])[:3, :3]
-
+        print(theta)
         r_35 = np.transpose(r_03) @ r_06
-
-        print(r_03)
-        print(r_35)
 
         theta[3] = atan2(r_35[0][0], r_35[0][2])
 
