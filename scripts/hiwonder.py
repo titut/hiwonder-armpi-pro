@@ -340,7 +340,7 @@ class HiwonderRobot:
         """
         Move in square motion
         """
-        print(f"Moving to home position... (START)")
+        """print(f"Moving to home position... (START)")
         time.sleep(2.0)
         print(f"Moving to Top Right")
         time.sleep(2.0)
@@ -350,8 +350,9 @@ class HiwonderRobot:
         time.sleep(2.0)
         print(f"Moving to Bottom Right")
         time.sleep(2.0)
-        print(f"Moving to home position... (END)")
-        pass
+        print(f"Moving to home position... (END)")"""
+        self.set_joint_values([0, -85.04, -64.58, -69.54, 0, 0], duration=800)
+        time.sleep(2.0)
 
     # -------------------------------------------------------------
     # Utility Functions
