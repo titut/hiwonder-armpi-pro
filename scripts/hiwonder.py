@@ -351,8 +351,10 @@ class HiwonderRobot:
         time.sleep(2.0)
         print(f"Moving to home position... (END)")"""
         self.set_joint_values([0, -10, -64.58, -69.54, 0, 0], duration=800)
-        print(f"[DEBUG] Current thetalist (deg) = {self.joint_values}")
         time.sleep(2.0)
+        print(f"[DEBUG] Current thetalist (deg) = {self.joint_values}")
+        time.sleep(1.0)
+        print(f"-------------------Moved to Square!------------------- \n")
 
     # -------------------------------------------------------------
     # Utility Functions
