@@ -147,7 +147,7 @@ class HiwonderRobot:
                     theta_i_table[i], d_table[i], r_table[i], alpha_table[i]
                 )
 
-    def calc_numerical_ik(self, EE: EndEffector, tol=0.01, ilimit=50):
+    def calc_numerical_ik(self, EE, tol=0.01, ilimit=50):
         """Calculate numerical inverse kinematics based on input coordinates."""
 
         ########################################
