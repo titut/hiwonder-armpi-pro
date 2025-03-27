@@ -146,7 +146,7 @@ class HiwonderRobot:
                 self.DH[i] = self.DH_matrix(
                     theta_i_table[i], d_table[i], r_table[i], alpha_table[i]
                 )
-                
+
     def calc_numerical_ik(self, EE: EndEffector, tol=0.01, ilimit=50):
         """Calculate numerical inverse kinematics based on input coordinates."""
 
@@ -194,7 +194,6 @@ class HiwonderRobot:
         # Recompute robot points based on updated joint angles
         self.calc_forward_kinematics(self.theta, radians=True)
 
-    
     def calc_analytical_inverse_kinematics(self, x, y, z, rot):
         """
         Calculates angle of each joint given x, y, z, and rotation.
@@ -246,7 +245,6 @@ class HiwonderRobot:
         theta = [degrees(i) for i in theta]
 
         return theta
-
 
     def set_arm_velocity(self, cmd: ut.GamepadCmds):
         """Calculates and sets new joint angles from linear velocities.
@@ -395,7 +393,7 @@ class HiwonderRobot:
         """
         print(f"Moving to square position...")
         self.set_joint_values(
-            self.calc_analytical_inverse_kinematics(0.29, -0.0762, 0.331, -30),
+            self.calc_analytical_inverse_kinematics(0.29, 0.0762, 0.331, -30),
             duration=800,
         )
         time.sleep(2.0)
@@ -446,7 +444,7 @@ class HiwonderRobot:
             )
 
         return new_jacobian
-        
+
     def angle_to_pulse(self, x: float):
         """Converts degrees to servo pulse value"""
         hw_min, hw_max = 0, 1000  # Hardware-defined range
