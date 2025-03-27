@@ -33,6 +33,7 @@ class HiwonderRobot:
         self.l1, self.l2, self.l3, self.l4, self.l5 = 0.155, 0.099, 0.095, 0.055, 0.105
 
         self.home_position = [0, -85.04, -64.58, -69.54, 0, 0]  # degrees
+        self.square_position = [0, -10, -64.58, -69.54, 0, 0]
 
         self.joint_limits = [
             [-120, 120],
@@ -339,18 +340,8 @@ class HiwonderRobot:
         """
         Move in square motion
         """
-        """print(f"Moving to home position... (START)")
-        time.sleep(2.0)
-        print(f"Moving to Top Right")
-        time.sleep(2.0)
-        print(f"Moving to Top Left")
-        time.sleep(2.0)
-        print(f"Moving to Bottom Left")
-        time.sleep(2.0)
-        print(f"Moving to Bottom Right")
-        time.sleep(2.0)
-        print(f"Moving to home position... (END)")"""
-        self.set_joint_values([0, -10, -64.58, -69.54, 0, 0], duration=800)
+        print(f"Moving to square position...")
+        self.set_joint_values(self.square_position, duration=800)
         time.sleep(2.0)
         print(f"[DEBUG] Current thetalist (deg) = {self.joint_values}")
         time.sleep(1.0)
