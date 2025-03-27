@@ -75,9 +75,9 @@ class HiwonderRobot:
 
         ######################################################################
 
-        # print(
-        #    f"[DEBUG] XYZ position: X: {round(position[0], 3)}, Y: {round(position[1], 3)}, Z: {round(position[2], 3)} \n"
-        # )
+        print(
+            f"[DEBUG] XYZ position: X: {round(position[0], 3)}, Y: {round(position[1], 3)}, Z: {round(position[2], 3)} \n"
+        )
 
     def set_base_velocity(self, cmd: ut.GamepadCmds):
         """Computes wheel speeds based on joystick input and sends them to the board"""
