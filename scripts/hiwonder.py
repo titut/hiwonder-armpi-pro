@@ -75,9 +75,9 @@ class HiwonderRobot:
 
         ######################################################################
 
-        print(
-            f"[DEBUG] XYZ position: X: {round(position[0], 3)}, Y: {round(position[1], 3)}, Z: {round(position[2], 3)} \n"
-        )
+        # print(
+        #    f"[DEBUG] XYZ position: X: {round(position[0], 3)}, Y: {round(position[1], 3)}, Z: {round(position[2], 3)} \n"
+        # )
 
     def set_base_velocity(self, cmd: ut.GamepadCmds):
         """Computes wheel speeds based on joystick input and sends them to the board"""
@@ -351,6 +351,7 @@ class HiwonderRobot:
         time.sleep(2.0)
         print(f"Moving to home position... (END)")"""
         self.set_joint_values([0, -10, -64.58, -69.54, 0, 0], duration=800)
+        print(f"[DEBUG] Current thetalist (deg) = {self.joint_values}")
         time.sleep(2.0)
 
     # -------------------------------------------------------------
