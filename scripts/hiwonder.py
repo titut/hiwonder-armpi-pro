@@ -61,8 +61,7 @@ class HiwonderRobot:
         print(f"j_1: {cmd.arm_j1}")
         if cmd.arm_home:
             self.move_to_home_position()
-
-        if cmd.arm_j1:
+        elif cmd.arm_j1:
             self.move_square()
 
         # print(f"---------------------------------------------------------------------")
@@ -351,7 +350,7 @@ class HiwonderRobot:
         print(f"Moving to Bottom Right")
         time.sleep(2.0)
         print(f"Moving to home position... (END)")"""
-        self.set_joint_values([0, -85.04, -64.58, -69.54, 0, 0], duration=800)
+        self.set_joint_values([0, -10, -64.58, -69.54, 0, 0], duration=800)
         time.sleep(2.0)
 
     # -------------------------------------------------------------
