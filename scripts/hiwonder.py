@@ -153,7 +153,7 @@ class HiwonderRobot:
         ########################################
 
         # define initial guess
-        original_points = [
+        """original_points = [
             self.ee.x,
             self.ee.y,
             self.ee.z,
@@ -192,7 +192,7 @@ class HiwonderRobot:
         ########################################
 
         # Recompute robot points based on updated joint angles
-        self.calc_forward_kinematics(self.theta, radians=True)
+        self.calc_forward_kinematics(self.theta, radians=True)"""
 
     def calc_analytical_inverse_kinematics(self, x, y, z, rot):
         """
@@ -239,6 +239,9 @@ class HiwonderRobot:
         r_03 = (self.DH[0] @ self.DH[1] @ self.DH[2])[:3, :3]
 
         r_35 = np.transpose(r_03) @ r_06
+
+        print(r_03)
+        print(r_35)
 
         theta[3] = atan2(r_35[0][0], r_35[0][2])
 
