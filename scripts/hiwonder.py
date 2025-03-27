@@ -137,7 +137,7 @@ class HiwonderRobot:
         d_table = [self.l1, 0, 0, 0, self.l5]
         r_table = [0, self.l2, self.l3, self.l4, 0]
         alpha_table = [np.pi / 2, np.pi, np.pi, 0, 0]
-        for i in range(self.num_dof):
+        for i in range(5):
             if i == 0:
                 self.DH[i] = self.DH_matrix(
                     theta_i_table[i], d_table[i], r_table[i], alpha_table[i]
