@@ -6,7 +6,7 @@ Handles the control of the mobile base and 5-DOF robotic arm using commands rece
 """
 
 import time
-from math import sin, cos, radians, degrees
+from math import sin, cos, atan2, radians, degrees, sqrt, acos
 import numpy as np
 from board_controller import BoardController
 from servo_bus_controller import ServoBusController
@@ -32,8 +32,7 @@ class HiwonderRobot:
         # arm lengths
         self.l1, self.l2, self.l3, self.l4, self.l5 = 0.155, 0.099, 0.095, 0.055, 0.105
 
-        self.home_position = [45, -52.09, -23.2, -61.11, 0, 0]  # degrees
-        self.home_position2 = [-45, -52.09, -23.2, -61.11, 0, 0]  # degrees
+        self.home_position = [0, -85.04, -64.58, -69.54, 0, 0]  # degrees
 
         self.joint_limits = [
             [-120, 120],
@@ -143,6 +142,54 @@ class HiwonderRobot:
                 self.DH[i] = self.DH_matrix(
                     theta_i_table[i], d_table[i], r_table[i], alpha_table[i]
                 )
+
+    def calc_analytical_inverse_kinematics(self, x, y, z, rot):
+        """
+        Calculates angle of each joint given x, y, z, and rotation.
+        """
+        theta = [0, -85.04, -64.58, -69.54, 0, 0]
+
+        theta[0] = atan2(y, x)
+        rot_z_theta1 = np.array(
+            [
+                [cos(theta[0]), -sin(theta[0]), 0],
+                [sin(theta[0]), cos(theta[0]), 0],
+                [0, 0, 1],
+            ]
+        )
+        rotz = radians(rot)
+        rot_y = np.array(
+            [
+                [cos(np.pi / 2 + rotz), 0, sin(np.pi / 2 + rotz)],
+                [0, 1, 0],
+                [-sin(np.pi / 2 + rotz), 0, cos(np.pi / 2 + rotz)],
+            ]
+        )
+        k = np.transpose(np.array([[0, 0, 1]]))
+        r_06 = rot_z_theta1 @ rot_y
+        t_35 = (self.l4 + self.l5) * r_06 @ k
+
+        p_wrist_x = x - t_35[0]
+        p_wrist_y = y - t_35[1]
+        p_wrist_z = z - t_35[2]
+
+        rx = sqrt(p_wrist_x**2 + p_wrist_y**2)
+        ry = p_wrist_z - self.l1
+
+        theta[2] = acos(
+            (rx**2 + ry**2 - self.l2**2 - self.l3**2) / (2 * self.l2 * self.l3)
+        )
+        alpha = atan2(self.l2 * sin(theta[2]), self.l2 + self.l3 * cos(theta[2]))
+        gamma = atan2(ry, rx)
+        theta[1] = (gamma - alpha) - (np.pi / 2)
+        theta[2] = -theta[2]
+
+        self.calc_DH_matrices()
+        r_03 = (self.DH[0] @ self.DH[1] @ self.DH[2])[:3, :3]
+
+        r_35 = np.transpose(r_03) @ r_06
+
+        theta[3] = atan2(r_35[0][0], r_35[0][2])
 
     def set_arm_velocity(self, cmd: ut.GamepadCmds):
         """Calculates and sets new joint angles from linear velocities.
@@ -284,12 +331,23 @@ class HiwonderRobot:
         print(f"Arrived at home position: {self.joint_values} \n")
         time.sleep(1.0)
         print(f"------------------- System is now ready!------------------- \n")
-        print(f"Moving to home position...")
-        self.set_joint_values(self.home_position2, duration=800)
+
+    def move_square(self):
+        """
+        Move in square motion
+        """
+        print(f"Moving to home position... (START)")
         time.sleep(2.0)
-        print(f"Arrived at home position: {self.joint_values} \n")
-        time.sleep(1.0)
-        print(f"------------------- System is now ready!------------------- \n")
+        print(f"Moving to Top Right")
+        time.sleep(2.0)
+        print(f"Moving to Top Left")
+        time.sleep(2.0)
+        print(f"Moving to Bottom Left")
+        time.sleep(2.0)
+        print(f"Moving to Bottom Right")
+        time.sleep(2.0)
+        print(f"Moving to home position... (END)")
+        pass
 
     # -------------------------------------------------------------
     # Utility Functions
