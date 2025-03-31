@@ -247,7 +247,7 @@ class HiwonderRobot:
         theta[1] = (gamma - alpha) - (np.pi / 2)
         theta[2] = -theta[2]
 
-        self.calc_DH_matrices()
+        self.calc_DH_matrices(theta)
         r_03 = (self.DH[0] @ self.DH[1] @ self.DH[2])[:3, :3]
         r_35 = np.transpose(r_03) @ r_06
 
