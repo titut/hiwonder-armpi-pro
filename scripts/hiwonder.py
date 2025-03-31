@@ -255,6 +255,8 @@ class HiwonderRobot:
 
         theta = [degrees(i) for i in theta]
 
+        theta[3] = theta[3] - 7
+
         print(theta)
 
         return theta
