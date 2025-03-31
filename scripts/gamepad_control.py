@@ -125,7 +125,7 @@ class GamepadControl:
             "ABS_Y": ("abs_y", event.state),
             "ABS_RY": ("abs_z", event.state),
             "BTN_TL": ("MOBILE_BASE_FLAG", bool(event.state)),
-            "BTN_TR": ("ARM_FLAG", bool(event.state)),
+            "BTN_BASE2": ("ARM_FLAG", bool(event.state)),
             "BTN_TRIGGER": ("ARM_J1_FLAG", bool(event.state)),
             "BTN_THUMB2": ("ARM_J2_FLAG", bool(event.state)),
             "BTN_THUMB": ("ARM_J3_FLAG", bool(event.state)),
