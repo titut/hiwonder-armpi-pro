@@ -395,7 +395,7 @@ class HiwonderRobot:
     def move_to_home_position(self):
         print(f"Moving to home position...")
         self.set_joint_values(
-            self.calc_analytical_inverse_kinematics(0.29, 0, 0.20, 14),
+            self.calc_analytical_inverse_kinematics(0.29, 0, 0.15, 14),
             duration=500,
         )
         time.sleep(2.0)
