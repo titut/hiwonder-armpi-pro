@@ -124,7 +124,7 @@ class HiwonderRobot:
             ]
         )
 
-    def calc_DH_matrices(self):
+    def calc_DH_matrices(self, theta=None):
         """Calculates all DH Matrices of the system"""
         # DH table parameters
         theta_i_table = [
@@ -134,6 +134,14 @@ class HiwonderRobot:
             self.theta[3],
             self.theta[4],
         ]
+        if theta is not None:
+            theta_i_table = [
+                theta[0],
+                theta[1],
+                theta[2],
+                theta[3],
+                theta[4],
+            ]
         d_table = [self.l1, 0, 0, 0, self.l5]
         r_table = [0, self.l2, self.l3, self.l4, 0]
         alpha_table = [np.pi / 2, np.pi, np.pi, 0, 0]
@@ -406,6 +414,7 @@ class HiwonderRobot:
         print(f"[DEBUG] Current thetalist (deg) = {self.joint_values}")
         time.sleep(1.0)
         print(f"-------------------Moved to Square!------------------- \n")
+        time.sleep(10.0)
 
     # -------------------------------------------------------------
     # Utility Functions
