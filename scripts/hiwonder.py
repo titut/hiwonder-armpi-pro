@@ -407,11 +407,24 @@ class HiwonderRobot:
         """
         print(f"Moving to square position...")
         self.set_joint_values(
+            self.calc_analytical_inverse_kinematics(0.29, -0.0762, 0.331, -30),
+            duration=800,
+        )
+        time.sleep(2.0)
+        self.set_joint_values(
             self.calc_analytical_inverse_kinematics(0.29, 0.0762, 0.331, -30),
             duration=800,
         )
         time.sleep(2.0)
-        print(f"[DEBUG] Current thetalist (deg) = {self.joint_values}")
+        self.set_joint_values(
+            self.calc_analytical_inverse_kinematics(0.29, 0.0762, 0.179, 30),
+            duration=800,
+        )
+        time.sleep(2.0)
+        self.set_joint_values(
+            self.calc_analytical_inverse_kinematics(0.29, -0.0762, 0.179, 30),
+            duration=800,
+        )
         time.sleep(1.0)
         print(f"-------------------Moved to Square!------------------- \n")
         time.sleep(10.0)
