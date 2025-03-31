@@ -255,8 +255,6 @@ class HiwonderRobot:
 
         theta = [degrees(i) for i in theta]
 
-        theta[1] = theta[1] - 7
-
         print(theta)
 
         return theta
@@ -397,7 +395,7 @@ class HiwonderRobot:
     def move_to_home_position(self):
         print(f"Moving to home position...")
         self.set_joint_values(
-            self.calc_analytical_inverse_kinematics(0.29, 0, 0.255, 0),
+            self.calc_analytical_inverse_kinematics(0.29, 0, 0.255, 14),
             duration=500,
         )
         time.sleep(2.0)
